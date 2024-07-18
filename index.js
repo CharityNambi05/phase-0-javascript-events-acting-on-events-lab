@@ -1,16 +1,28 @@
 // Your code hereconst DODGER 
-
-
-const DODGER = document.getElementById('DODGER');
+const dodger = document.getElementById("dodger");
 
 function moveDodgerLeft() {
-  const currentLeft = parseInt(DODGER.style.left) || 0;
-  const newLeft = Math.max(0, currentLeft - 10); 
-  DODGER.style.left = `${newLeft}px`;
+  const leftNumbers = dodger.style.left.replace("px", "");
+  const left = parseInt(leftNumbers, 10);
+
+  if (left > 0) {
+    dodger.style.left = `${left - 1}px`;
+  }
 }
 
 function moveDodgerRight() {
-  const currentLeft = parseInt(DODGER.style.left) || 0;
-  const newLeft = Math.min(window.innerWidth - DODGER.offsetWidth, currentLeft + 10); 
-  DODGER.style.left = `${newLeft}px`;
+  const leftNumbers = dodger.style.left.replace("px", "");
+  const left = parseInt(leftNumbers, 10);
+
+  if (left < 360) { // 400px (game width) - 40px (dodger width) = 360px
+    dodger.style.left = `${left + 1}px`;
+  }
 }
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "ArrowLeft") {
+    moveDodgerLeft();
+  } else if (event.key === "ArrowRight") {
+    moveDodgerRight();
+  }
+});
